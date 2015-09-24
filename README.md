@@ -22,7 +22,7 @@ Below is a list of existing functionality.
 
 Install using composer
 
-```
+```sh
 curl -s http://getcomposer.org/installer | php
 git clone https://github.com/hrithikp/php-linalg
 cd php-linalg
@@ -31,7 +31,7 @@ cd php-linalg
 
 ## Testing
 Uses phpunit for unit testing
-```
+```sh
 ./vendor/bin/phpunit
 ```
 
@@ -39,7 +39,7 @@ Uses phpunit for unit testing
 
 Below is an example (wordlen.php) that uses a custom parser to populate a vector with string lengths.
 
-```
+```php
 use LinAlg\Vector;
 
 $input = ['the', 'quick', 'brown', 'fox', 'jumps', 'over', 'the', 'lazy', 'dog'];
@@ -53,7 +53,7 @@ $lengths = new Vector($input, function ($x) {
 });
 print_r($lengths);
 ```
-```
+```sh
 $ php example/wordlen.php
 LinAlg\Vector Object
 (
