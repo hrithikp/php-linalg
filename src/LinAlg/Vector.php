@@ -2,16 +2,23 @@
 
 namespace LinAlg;
 
+function toFloat($x)
+{
+    return floatval($x);
+}
+
 class Vector implements \Iterator, \Countable
 {
-    private $store;
     private $index = 0;
-    public function __construct(array $data)
+    private $store;
+    private $parser;
+    public function __construct(array $data, $parser = null)
     {
+        $this->parser = $parser;
         $this->store = new \SplFixedArray(count($data));
         foreach ($data as $index => $value)
         {
-            $this->store[$index] = intval($value);
+            $this->store[$index] = $this->parse($value);
         }
         $this->index = 0;
     } 
@@ -39,6 +46,22 @@ class Vector implements \Iterator, \Countable
     {
         return count($this->store);
     }
+    private function parse($x)
+    {
+        $out = null;
+        if (is_callable($this->parser))
+        {
+            $out = call_user_func($this->parser, $x);
+        }
+        if (is_int($out) || is_float($out))
+        {
+            return $out;
+        }
+        else 
+        {
+            return floatval($x);
+        }
+    }
     private function hasdim(Vector $X)
     {
         return count($X) === $this->count();
@@ -56,7 +79,7 @@ class Vector implements \Iterator, \Countable
         {
             foreach($X as $i => $x)
             {
-                $out[$i] = $op($this->store[$i], $x, $i);
+                $out[$i] = call_user_func($op, $this->store[$i], $x, $i);
             }            
         }
         return $out;
@@ -72,5 +95,38 @@ class Vector implements \Iterator, \Countable
         };
         $out = $this->run($op, $inp);
         return new Vector($out);
+    }
+    public function sub(Vector $inp)
+    {
+        if (!$this->hasdim($inp))
+        {
+            throw new \InvalidArgumentException("Cannot subtract vectors of diff lengths");
+        }
+        $op = function ($a, $b) { 
+          return $a - $b; 
+        };
+        $out = $this->run($op, $inp);
+        return new Vector($out);
+    }
+    public function mul($k)
+    {
+        $k = $this->parse($k);
+        $op = function ($x, $c) { 
+          return $c * $x; 
+        };
+
+        $out = $this->run($op, $k);
+        return new Vector($out);
+    }
+    public function abs()
+    {
+        $n = $this->run(function ($x) {
+            return $x * $x;
+        });
+        return sqrt(array_sum($n));
+    }
+    public function len($type='euclid') 
+    {
+        return $this->abs();
     }
 }
