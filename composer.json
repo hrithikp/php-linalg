@@ -4,7 +4,7 @@
     "description": "An php library for linear alegebra",
     "keywords": ["Linear Alegebra", "Math"],
     "homepage": "http://github.com/hrithikp/php-lingalg",
-    "license" : "BSD",
+    "license" : "MIT",
     "authors" : [
         {
             "name": "Hrithik Patel"
