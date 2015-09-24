@@ -1,7 +1,7 @@
 {
     "name": "hrithikp/linalg",
     "type": "library",
-    "description": "An php library for perform linear alegebra",
+    "description": "An php library for linear alegebra",
     "keywords": ["Linear Alegebra", "Math"],
     "homepage": "http://github.com/hrithikp/php-lingalg",
     "license" : "BSD",
