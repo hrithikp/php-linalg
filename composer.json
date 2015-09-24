@@ -1,0 +1,24 @@
+{
+    "name": "hrithikp/linalg",
+    "type": "library",
+    "description": "An php library for perform linear alegebra",
+    "keywords": ["Linear Alegebra", "Math"],
+    "homepage": "http://github.com/hrithikp/php-lingalg",
+    "license" : "BSD",
+    "authors" : [
+        {
+            "name": "Hrithik Patel"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.2"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~4.0"
+    },
+    "autoload": {
+        "psr-0": {
+            "LinAlg": "src/"
+        }
+    }
+}
