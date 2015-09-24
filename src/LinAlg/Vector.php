@@ -39,4 +39,38 @@ class Vector implements \Iterator, \Countable
     {
         return count($this->store);
     }
+    private function hasdim(Vector $X)
+    {
+        return count($X) === $this->count();
+    }
+    private function run($op, $X = null, $out = array())
+    {
+        if ($X === null || !($X instanceof Vector))
+        {
+            foreach($this->store as $i => $v)
+            {
+                $out[] = $op($this->store[$i], $X, $i);
+            }
+        }
+        else 
+        {
+            foreach($X as $i => $x)
+            {
+                $out[$i] = $op($this->store[$i], $x, $i);
+            }            
+        }
+        return $out;
+    }
+    public function add(Vector $inp)
+    {
+        if (!$this->hasdim($inp))
+        {
+            throw new \InvalidArgumentException("Cannot add vectors of diff lengths");
+        }
+        $op = function ($a, $b) { 
+          return $a + $b; 
+        };
+        $out = $this->run($op, $inp);
+        return new Vector($out);
+    }
 }
