@@ -5,7 +5,12 @@ class VectorTest extends BaseTestCase
 {
     public function testVectorCreate()
     {
-        $raw = [1,1];
+        $raw = array();
+        $dim = rand($this->minDim,$this->maxDim);
+        for ($d = 0; $d < $dim; $d++)
+        {
+            $raw[$d] = rand($this->minNum, $this->maxNum);
+        }
         $A = new Vector($raw);
         $this->assertInstanceOf('LinAlg\Vector', $A);
         $this->assertEquals(count($A), count($raw));
