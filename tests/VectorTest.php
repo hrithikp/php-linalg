@@ -78,4 +78,11 @@ class VectorTest extends BaseTestCase
         $ans = sqrt(2);
         $this->assertEquals($vec->abs(), $ans);
     }
+    public function testVectorDot()
+    {
+        $vec = new Vector([1, 1]);
+        $ans = pow($vec->abs(), 2);
+        $dot = $vec->dot($vec);
+        $this->assertEquals($dot, $ans);
+    }
 }
